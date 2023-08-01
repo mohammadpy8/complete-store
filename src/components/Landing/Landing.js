@@ -1,4 +1,5 @@
 import React from "react";
+import Typewriter from 'typewriter-effect';
 import "./Landing.css";
 
 const Landing = () => {
@@ -6,7 +7,21 @@ const Landing = () => {
     <section class="landing">
       <div class="container">
         <h1 class="landing__title">
-          ما به هر قیمتی دوره آموزشی تولید نمی کنیم !
+          <Typewriter
+            onInit={(typeWriter) => {
+              typeWriter.typeString("ما به هر قیمتی دوره آموزشی تولید نمی کنیم!")
+                .start()
+                .pauseFor(2000)
+                .deleteAll()
+                .typeString("سبزلرن - آکادمی خصوصی برنامه نویسی")
+                .start()
+                .pauseFor(2000);
+            }}
+
+            options={{
+              loop: true,
+            }}
+          />
         </h1>
         <h2 class="landing__subtitle">
           با آکادمی سبزلرن، برنامه نویسی رو با خیال راحت یاد بگیر و پیشرفت کن.
