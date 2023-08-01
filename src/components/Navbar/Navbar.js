@@ -13,7 +13,7 @@ const Navbar = () => {
               alt="لوگوی سبزلرن"
             />
 
-            <ul class="main-header__menu">
+            <ul className="main-header__menu">
               <li class="main-header__item">
                 <a href="#" class="main-header__link">
                   صفحه اصلی

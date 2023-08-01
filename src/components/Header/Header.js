@@ -1,13 +1,16 @@
 import React from "react";
-import "./Header.css";
 import TopBar from "../TopBar/TopBar";
 import Navbar from "../Navbar/Navbar";
+import Landing from "../Landing/Landing";
+
+import "./Header.css";
 
 const Header = () => {
   return (
     <header class="header">
       <TopBar />
       <Navbar />
+      <Landing />
     </header>
   );
 };
