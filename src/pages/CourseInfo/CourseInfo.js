@@ -20,7 +20,7 @@ const CourseInfo = () => {
             title: "آموزش برنامه نویسی فرانت اند",
             to: "/category-info/frontend",
           },
-          { id: 3, title: "وره متخصص ریکت", to: "/course-info/js-expert" },
+          { id: 3, title: "دوره متخصص ریکت و ریداکس", to: "/course-info/js-expert" },
         ]}
       />
 
