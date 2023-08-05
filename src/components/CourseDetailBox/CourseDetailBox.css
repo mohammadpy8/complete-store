@@ -1,3 +1,5 @@
+/* start course-info style */
+
 .course-boxes__box {
     display: flex;
     border-radius: 0.5rem;
@@ -32,3 +34,5 @@
     font-size: 1.6rem;
     color: #7d7e7f;
 }
+
+/* finish course-info style */
