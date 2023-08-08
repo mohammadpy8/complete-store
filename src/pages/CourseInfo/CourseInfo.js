@@ -8,6 +8,7 @@ import "./CourseInfo.css";
 import CourseDetailBox from "../../components/CourseDetailBox/CourseDetailBox";
 
 const CourseInfo = () => {
+  
   return (
     <>
       <TopBar />
@@ -27,7 +28,6 @@ const CourseInfo = () => {
           },
         ]}
       />
-
       <section className="course-info">
         <div className="container">
           <div className="row">
@@ -70,7 +70,7 @@ const CourseInfo = () => {
           </div>
         </div>
       </section>
-
+      
       <main className="main">
         <div className="container">
           <div className="row">
@@ -233,7 +233,10 @@ const CourseInfo = () => {
                                 1
                               </span>
                               <i className="fab fa-youtube introduction__accordion-icon"></i>
-                              <a href="#" className="introduction__accordion-link">
+                              <a
+                                href="#"
+                                className="introduction__accordion-link"
+                              >
                                 معرفی دوره + چرا یادگیری کتابخانه ها ضروری است؟
                               </a>
                             </div>
@@ -272,7 +275,10 @@ const CourseInfo = () => {
                                 1
                               </span>
                               <i className="fab fa-youtube introduction__accordion-icon"></i>
-                              <a href="#" className="introduction__accordion-link">
+                              <a
+                                href="#"
+                                className="introduction__accordion-link"
+                              >
                                 معرفی دوره + چرا یادگیری کتابخانه ها ضروری است؟
                               </a>
                             </div>
@@ -311,7 +317,10 @@ const CourseInfo = () => {
                                 1
                               </span>
                               <i className="fab fa-youtube introduction__accordion-icon"></i>
-                              <a href="#" className="introduction__accordion-link">
+                              <a
+                                href="#"
+                                className="introduction__accordion-link"
+                              >
                                 معرفی دوره + چرا یادگیری کتابخانه ها ضروری است؟
                               </a>
                             </div>
@@ -331,7 +340,6 @@ const CourseInfo = () => {
           </div>
         </div>
       </main>
-
       <Footer />
     </>
   );
