@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
+import CommentsTextArea from "../../components/CommentsTextArea/CommentsTextArea";
 
 import "./ArticleInfo.css";
 
@@ -233,6 +234,7 @@ const ArticleInfo = () => {
                   </div>
                 </div>
               </div>
+              <CommentsTextArea />
             </div>
             <div className="col-4"></div>
           </div>

@@ -3,9 +3,10 @@ import Navbar from "../../components/Navbar/Navbar";
 import TopBar from "../../components/TopBar/TopBar";
 import Footer from "../../components/Footer/Footer";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
+import CourseDetailBox from "../../components/CourseDetailBox/CourseDetailBox";
+import CommentsTextArea from "../../components/CommentsTextArea/CommentsTextArea";
 
 import "./CourseInfo.css";
-import CourseDetailBox from "../../components/CourseDetailBox/CourseDetailBox";
 
 const CourseInfo = () => {
   return (
@@ -362,6 +363,7 @@ const CourseInfo = () => {
                     زمینه وب فعالیت داشته باشم.و..
                   </p>
                 </div>
+                <CommentsTextArea />
               </div>
             </div>
 
