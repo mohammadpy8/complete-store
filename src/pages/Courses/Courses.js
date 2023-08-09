@@ -1,7 +1,6 @@
 import React from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Navbar from "../../components/Navbar/Navbar";
-import Pagination from "../../components/Pagination/Pagination";
 import Footer from "../../components/Footer/Footer";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import CourseBox from "../../components/CourseBox/CourseBox";
