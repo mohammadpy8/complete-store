@@ -5,15 +5,15 @@ import AboutUsBox from "../AboutUsBox/AboutUsBox";
 
 const AboutUs = () => {
   return (
-    <div class="about-us">
-      <div class="container">
+    <div className="about-us">
+      <div className="container">
         <SectionHeader
           title="ما چه کمکی بهتون می کنیم؟"
           desc="از آنجایی که آکادمی سبزلرن یک آکادمی خصوصی است"
         />
 
-        <div class="container">
-          <div class="row">
+        <div className="container">
+          <div className="row">
             <AboutUsBox
               title="دوره های اختصاصی"
               desc="با پشتیبانی و کیفیت بالا ارائه میده !"

@@ -6,8 +6,15 @@ import { Link } from "react-router-dom";
 import Input from "../../components/Form/Input";
 
 import "./Register.css";
+import Button from "../../components/Form/Button";
 
 const Register = () => {
+
+  const registerNewUser = (event) => {
+
+    event.preventDefault();
+  }
+
   return (
     <>
       <TopBar />
@@ -55,10 +62,10 @@ const Register = () => {
               />
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
-            <button className="login-form__btn" type="submit">
-              <i className="login-form__btn-icon fa fa-user-plus"></i>
+            <Button className="login-form__btn" type="submit" onClick={registerNewUser} disabled={false}>
+            <i className="login-form__btn-icon fa fa-user-plus"></i>
               <span className="login-form__btn-text">عضویت</span>
-            </button>
+            </Button>
           </form>
           <div className="login__des">
             <span className="login__des-title">سلام کاربر محترم:</span>

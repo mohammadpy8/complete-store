@@ -6,8 +6,14 @@ import { Link } from "react-router-dom";
 import Input from "../../components/Form/Input";
 
 import "./Login.css";
+import Button from "../../components/Form/Button";
 
 const Login = () => {
+
+  const loginUser = (event) => {
+    event.preventDefault();
+  }
+
   return (
     <>
       <TopBar />
@@ -45,13 +51,16 @@ const Login = () => {
 
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
-            <button className="login-form__btn" type="submit">
+            <Button className="login-form__btn" type="submit" onClick={loginUser} disabled={false}>
               <i className="login-form__btn-icon fas fa-sign-out-alt"></i>
               <span className="login-form__btn-text">ورود</span>
-            </button>
+            </Button>
             <div className="login-form__password-setting">
               <label className="login-form__password-remember">
-                <input className="login-form__password-checkbox" type="checkbox" />
+                <input
+                  className="login-form__password-checkbox"
+                  type="checkbox"
+                />
                 <span className="login-form__password-text">
                   مرا به خاطر داشته باش
                 </span>

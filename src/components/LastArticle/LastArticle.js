@@ -6,16 +6,16 @@ import ArticleBox from "../ArticleBox/ArticleBox";
 
 const LastArticle = () => {
   return (
-    <section class="articles">
-      <div class="container">
+    <section className="articles">
+      <div className="container">
         <SectionHeader
           title="جدیدترین مقاله ها"
           desc="پیش به سوی ارتقای دانش"
           btnTitle="تمامی مقاله ها"
         />
 
-        <div class="articles__content">
-          <div class="row">
+        <div className="articles__content">
+          <div className="row">
             <ArticleBox
               title="نحوه نصب کتابخانه در پایتون | آموزش نصب کتابخانه پایتون "
               cover="images/blog/3.jpg"
