@@ -12,10 +12,24 @@ import {
   maxValidator,
   emailValidator,
 } from "../../Validators/rules";
+import useForm from "../../hooks/useForm";
+
 
 import "./Login.css";
 
 const Login = () => {
+
+  const [formState, onInputHandler] = useForm({
+    usename: {
+      value: "",
+      isValid: false,
+    },
+    password: {
+      value: "",
+      isValid: false,
+    }
+  }, false);
+
   const loginUser = (event) => {
     event.preventDefault();
   };
@@ -41,6 +55,7 @@ const Login = () => {
             <div className="login-form__username">
               <Input
                 className="login-form__username-input"
+                id="username"
                 type="text"
                 placeholder="نام کاربری یا آدرس ایمیل"
                 element="input"
@@ -48,14 +63,15 @@ const Login = () => {
                   requiredValidator(),
                   minValidator(8),
                   maxValidator(20),
-                  emailValidator(),
                 ]}
+                onInputHandler={onInputHandler}
               />
               <i className="login-form__username-icon fa fa-user"></i>
             </div>
             <div className="login-form__password">
               <Input
                 className="login-form__password-input"
+                id="password"
                 type="text"
                 placeholder="رمز عبور"
                 element="input"
@@ -64,6 +80,7 @@ const Login = () => {
                   minValidator(8),
                   maxValidator(18),
                 ]}
+                onInputHandler={onInputHandler}
               />
 
               <i className="login-form__password-icon fa fa-lock-open"></i>
