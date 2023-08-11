@@ -64,6 +64,7 @@ const Login = () => {
                   requiredValidator(),
                   minValidator(8),
                   maxValidator(20),
+                  emailValidator(),
                 ]}
                 onInputHandler={onInputHandler}
               />
@@ -89,8 +90,8 @@ const Login = () => {
             <Button
               className={`login-form__btn ${
                 formState.isFormValid
-                  ? "login-form__btn-success"
-                  : "login-form__btn-error"
+                  ? "login-form__btn-error"
+                  : "login-form__btn-success"
               }`}
               type="submit"
               onClick={loginUser}
