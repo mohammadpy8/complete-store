@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import TopBar from "../../components/TopBar/TopBar";
@@ -14,12 +14,12 @@ import {
 } from "../../Validators/rules";
 import useForm from "../../hooks/useForm";
 
+import toast,{ Toaster } from "react-hot-toast";
+
 import "./Register.css";
 
 const Register = () => {
-  const registerNewUser = (event) => {
-    event.preventDefault();
-  };
+
 
   const [formState, onInputHandler] = useForm(
     {
@@ -35,18 +35,44 @@ const Register = () => {
         value: "",
         isValid: false,
       },
-      password: {
+      phone: {
         value: "",
         isValid: false,
       },
-
-      confirmpassword: {
+      password: {
         value: "",
         isValid: false,
       },
     },
     false
   );
+
+  const registerNewUser = (event) => {
+    event.preventDefault();
+
+    const newUserInfos = {
+      name: formState.inputs.name.value,
+      username: formState.inputs.username.value,
+      email: formState.inputs.email.value,
+      phone: formState.inputs.phone.value,
+      password: formState.inputs.password.value,
+      confirmPassword: formState.inputs.password.value,
+    };
+
+    fetch(`http://localhost:4000/v1/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUserInfos),
+    })
+      .then((res) => {
+        console.log(res);
+        res.status === 400 && toast.error('ثبت نام با موفقیت انجام شد')
+        res.status === 201 && toast.success('ثبت نام با موفقیت انجام شد')
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
@@ -79,7 +105,7 @@ const Register = () => {
                 validations={[
                   requiredValidator(),
                   minValidator(10),
-                  maxValidator(25)
+                  maxValidator(25),
                 ]}
               />
               <i className="login-form__username-icon fa fa-user"></i>
@@ -95,7 +121,7 @@ const Register = () => {
                 validations={[
                   requiredValidator(),
                   minValidator(8),
-                  maxValidator(18)
+                  maxValidator(18),
                 ]}
               />
               <i className="login-form__username-icon fa fa-user"></i>
@@ -108,11 +134,22 @@ const Register = () => {
                 element="input"
                 id="email"
                 onInputHandler={onInputHandler}
+                validations={[emailValidator()]}
+              />
+              <i className="login-form__password-icon fa fa-envelope"></i>
+            </div>
+            <div className="login-form__password">
+              <Input
+                className="login-form__password-input"
+                type="text"
+                placeholder="شماره تلفن"
+                element="input"
+                id="phone"
+                onInputHandler={onInputHandler}
                 validations={[
                   requiredValidator(),
-                  minValidator(8),
-                  maxValidator(18),
-                  emailValidator(),
+                  minValidator(12),
+                  maxValidator(13),
                 ]}
               />
               <i className="login-form__password-icon fa fa-envelope"></i>
@@ -128,24 +165,7 @@ const Register = () => {
                 validations={[
                   requiredValidator(),
                   minValidator(8),
-                  maxValidator(18)
-                ]}
-              />
-
-              <i className="login-form__password-icon fa fa-lock-open"></i>
-            </div>
-            <div className="login-form__password">
-              <Input
-                className="login-form__password-input"
-                type="text"
-                placeholder="رمز عبور را تکرار کنید"
-                element="input"
-                id="confirmpassword"
-                onInputHandler={onInputHandler}
-                validations={[
-                  requiredValidator(),
-                  minValidator(8),
-                  maxValidator(18)
+                  maxValidator(18),
                 ]}
               />
 
@@ -154,12 +174,12 @@ const Register = () => {
             <Button
               className={`login-form__btn ${
                 formState.isFormValid
-                  ? "login-form__btn-error"
-                  : "login-form__btn-success"
+                  ? "login-form__btn-success"
+                  : "login-form__btn-error"
               }`}
               type="submit"
               onClick={registerNewUser}
-              disabled={!formState.isFormValid}
+              // disabled={!formState.isFormValid}
             >
               <i className="login-form__btn-icon fa fa-user-plus"></i>
               <span className="login-form__btn-text">عضویت</span>
@@ -182,6 +202,8 @@ const Register = () => {
           </div>
         </div>
       </section>
+
+      <Toaster />
 
       <Footer />
     </>
