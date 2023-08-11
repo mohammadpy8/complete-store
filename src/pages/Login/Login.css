@@ -96,6 +96,8 @@
     font-size: 2.2rem;
     color: #ccc;
   }
+
+
   .login-form__btn {
     width: 100%;
     border: none;
@@ -104,8 +106,15 @@
     margin-top: 0.8rem;
     display: flex;
     align-items: center;
-    background-color: #2bce56;
     position: relative;
+  }
+
+  .login-form__btn-error{
+    background-color: red;
+  }
+
+  .login-form__btn-success {
+    background-color: #2bce56 !important;
   }
   .login-form__btn-icon {
     color: var(--white-color);

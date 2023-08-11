@@ -14,21 +14,22 @@ import {
 } from "../../Validators/rules";
 import useForm from "../../hooks/useForm";
 
-
 import "./Login.css";
 
 const Login = () => {
-
-  const [formState, onInputHandler] = useForm({
-    usename: {
-      value: "",
-      isValid: false,
+  const [formState, onInputHandler] = useForm(
+    {
+      usename: {
+        value: "",
+        isValid: false,
+      },
+      password: {
+        value: "",
+        isValid: false,
+      },
     },
-    password: {
-      value: "",
-      isValid: false,
-    }
-  }, false);
+    false
+  );
 
   const loginUser = (event) => {
     event.preventDefault();
@@ -72,7 +73,7 @@ const Login = () => {
               <Input
                 className="login-form__password-input"
                 id="password"
-                type="text"
+                type="password"
                 placeholder="رمز عبور"
                 element="input"
                 validations={[
@@ -86,10 +87,14 @@ const Login = () => {
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
             <Button
-              className="login-form__btn"
+              className={`login-form__btn ${
+                formState.isFormValid
+                  ? "login-form__btn-success"
+                  : "login-form__btn-error"
+              }`}
               type="submit"
               onClick={loginUser}
-              disabled={false}
+              disabled={!formState.isFormValid}
             >
               <i className="login-form__btn-icon fas fa-sign-out-alt"></i>
               <span className="login-form__btn-text">ورود</span>
