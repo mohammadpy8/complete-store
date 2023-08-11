@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import TopBar from "../../components/TopBar/TopBar";
@@ -14,12 +14,17 @@ import {
 } from "../../Validators/rules";
 import useForm from "../../hooks/useForm";
 
-import toast,{ Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+
+import AuthContext from "../../context/AuthContext";
 
 import "./Register.css";
 
 const Register = () => {
 
+  const AuthticationContext = useContext(AuthContext);
+
+  console.log(AuthticationContext);
 
   const [formState, onInputHandler] = useForm(
     {
@@ -66,10 +71,10 @@ const Register = () => {
       },
       body: JSON.stringify(newUserInfos),
     })
-      .then((res) => {
-        console.log(res);
-        res.status === 400 && toast.error('ثبت نام با موفقیت انجام شد')
-        res.status === 201 && toast.success('ثبت نام با موفقیت انجام شد')
+      .then((res) => res.json())
+      .then(result => {
+        console.log(result.accessToken);
+        AuthticationContext.login(result.user,result.accessToken);
       })
       .catch((err) => console.log(err));
   };
