@@ -14,6 +14,8 @@ import {
 } from "../../Validators/rules";
 import useForm from "../../hooks/useForm";
 
+import toast, { Toaster } from "react-hot-toast";
+
 import "./Login.css";
 
 const Login = () => {
@@ -33,6 +35,38 @@ const Login = () => {
 
   const loginUser = (event) => {
     event.preventDefault();
+
+    const userData = {
+      identifier: formState.inputs.username.value,
+      password: formState.inputs.password.value
+    };
+
+    fetch(`http://localhost:4000/v1/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(res => {
+        console.log(res);
+        if (!res.ok) {
+          return res.text().then(text => {
+            throw new Error(text);
+          })          
+        } else {
+          return res.json()
+        }
+      })
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(`err => ${err}`);
+        toast.error("چنین کاربری وجود ندارد");
+    })
+
+    console.log(userData);
   };
 
   return (
@@ -63,8 +97,8 @@ const Login = () => {
                 validations={[
                   requiredValidator(),
                   minValidator(8),
-                  maxValidator(20),
-                  emailValidator(),
+                  maxValidator(25),
+                  // emailValidator(),
                 ]}
                 onInputHandler={onInputHandler}
               />
@@ -95,7 +129,7 @@ const Login = () => {
               }`}
               type="submit"
               onClick={loginUser}
-              disabled={!formState.isFormValid}
+              // disabled={!formState.isFormValid}
             >
               <i className="login-form__btn-icon fas fa-sign-out-alt"></i>
               <span className="login-form__btn-text">ورود</span>
@@ -134,6 +168,8 @@ const Login = () => {
           </div>
         </div>
       </section>
+
+      <Toaster />
 
       <Footer />
     </>
