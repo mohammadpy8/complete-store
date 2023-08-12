@@ -74,7 +74,7 @@ const Register = () => {
       .then((res) => res.json())
       .then(result => {
         console.log(result.accessToken);
-        AuthticationContext.login(result.user,result.accessToken);
+        AuthticationContext.login(result.user, result.accessToken);
       })
       .catch((err) => console.log(err));
   };
