@@ -37,7 +37,7 @@ function App() {
     if (localStorageData) {
       fetch(`http://localhost:4000/v1/auth/me`, {
         headers: {
-          "Authorization": `Bearer ${localStorageData.token}`
+          Authorization: `Bearer ${localStorageData.token}`
         }
       })
         .then(res => res.json())

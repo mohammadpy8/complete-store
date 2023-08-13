@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -15,10 +15,14 @@ import {
 import useForm from "../../hooks/useForm";
 
 import toast, { Toaster } from "react-hot-toast";
+import AuthContext from "../../context/AuthContext";
 
 import "./Login.css";
 
 const Login = () => {
+
+  const loginAccess = useContext(AuthContext);
+
   const [formState, onInputHandler] = useForm(
     {
       usename: {
@@ -60,6 +64,7 @@ const Login = () => {
       })
       .then(result => {
         console.log(result);
+        loginAccess.login({}, result.accessToken);
       })
       .catch(err => {
         console.log(`err => ${err}`);
