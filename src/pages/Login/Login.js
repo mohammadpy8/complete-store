@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Form/Input";
 
 import Button from "../../components/Form/Button";
@@ -17,9 +17,13 @@ import useForm from "../../hooks/useForm";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../../context/AuthContext";
 
+import swal from "sweetalert";
+
 import "./Login.css";
 
 const Login = () => {
+
+  const navigate = useNavigate();
 
   const loginAccess = useContext(AuthContext);
 
@@ -63,12 +67,24 @@ const Login = () => {
         }
       })
       .then(result => {
-        console.log(result);
+        swal({
+          title: "ورود با موفقیت انجام شد",
+          icon: "success",
+          buttons: "ورود به پنل کاربری"
+        }).then(value => {
+          navigate("/");
+          console.log(value);
+        })
         loginAccess.login({}, result.accessToken);
       })
       .catch(err => {
         console.log(`err => ${err}`);
         toast.error("چنین کاربری وجود ندارد");
+        swal({
+          title: "چنین کاربری وجود ندارد",
+          icon: "error",
+          buttons: "تلاش دوباره",
+        })
     })
 
     console.log(userData);

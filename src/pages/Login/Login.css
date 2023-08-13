@@ -160,3 +160,7 @@
   }
   /* ============================== Login-Register Style ============================== */
   
+  .swal-footer {
+    display: flex;
+    justify-content: center;
+  }
