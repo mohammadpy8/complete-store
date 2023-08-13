@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -18,12 +18,14 @@ import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../../context/AuthContext";
 
 import swal from "sweetalert";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import "./Login.css";
 
 const Login = () => {
-
   const navigate = useNavigate();
+
+  const [isGoogleRecaptcha, setIsGoogleRecaptcha] = useState(false);
 
   const loginAccess = useContext(AuthContext);
 
@@ -46,7 +48,7 @@ const Login = () => {
 
     const userData = {
       identifier: formState.inputs.username.value,
-      password: formState.inputs.password.value
+      password: formState.inputs.password.value,
     };
 
     fetch(`http://localhost:4000/v1/auth/login`, {
@@ -56,39 +58,44 @@ const Login = () => {
       },
       body: JSON.stringify(userData),
     })
-      .then(res => {
+      .then((res) => {
         console.log(res);
         if (!res.ok) {
-          return res.text().then(text => {
+          return res.text().then((text) => {
             throw new Error(text);
-          })          
+          });
         } else {
-          return res.json()
+          return res.json();
         }
       })
-      .then(result => {
+      .then((result) => {
         swal({
           title: "ورود با موفقیت انجام شد",
           icon: "success",
-          buttons: "ورود به پنل کاربری"
-        }).then(value => {
+          buttons: "ورود به پنل کاربری",
+        }).then((value) => {
           navigate("/");
           console.log(value);
-        })
+        });
         loginAccess.login({}, result.accessToken);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(`err => ${err}`);
         toast.error("چنین کاربری وجود ندارد");
         swal({
           title: "چنین کاربری وجود ندارد",
           icon: "error",
           buttons: "تلاش دوباره",
-        })
-    })
+        });
+      });
 
     console.log(userData);
   };
+
+  const changeHandler = () => {
+    console.log("google");
+    setIsGoogleRecaptcha(true);
+  }
 
   return (
     <>
@@ -142,9 +149,12 @@ const Login = () => {
 
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
+            <div className="login-form__password">
+              <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={changeHandler} />
+            </div>
             <Button
               className={`login-form__btn ${
-                formState.isFormValid
+                (formState.isFormValid && isGoogleRecaptcha)
                   ? "login-form__btn-error"
                   : "login-form__btn-success"
               }`}
