@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import TopBar from "../../components/TopBar/TopBar";
 import Footer from "../../components/Footer/Footer";
@@ -7,10 +7,29 @@ import CourseDetailBox from "../../components/CourseDetailBox/CourseDetailBox";
 import CommentsTextArea from "../../components/CommentsTextArea/CommentsTextArea";
 
 import Accordion from "react-bootstrap/Accordion";
+import { useParams } from "react-router-dom";
 
 import "./CourseInfo.css";
 
 const CourseInfo = () => {
+
+  const { courseName } = useParams();
+
+  useEffect(() => {
+    
+    fetch(`http://localhost:4000/v1/courses/${courseName}`, {
+      method: "GET",
+      headers: {
+        "Authorization" : `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+      }
+    })
+      .then(res => res.json())
+      .then(courseInfo => {
+      console.log(courseInfo);
+    })
+
+  }, [])
+
   return (
     <>
       <TopBar />
