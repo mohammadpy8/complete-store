@@ -17,15 +17,18 @@ const CourseInfo = () => {
 
   const [comments, setComments] = useState([]);
   const [sessions, setSessions] = useState([]);
-  const [courseDetails, setCourseDetails] = useState([]);
-
+  const [courseDetails, setCourseDetails] = useState([]); 
+  const [categoryID, setCategoryID] = useState([]);
+  const [createdAt, setCreatedAt] = useState([]);
+  const [updatedAt, setUpdatedAt] = useState([]);
+  const [isComplete, setIsComplete] = useState([]);
 
   useEffect(() => {
     
     fetch(`http://localhost:4000/v1/courses/${courseName}`, {
       method: "GET",
       headers: {
-        "Authorization" : `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        "Authorization": `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
       }
     })
       .then(res => res.json())
@@ -33,9 +36,17 @@ const CourseInfo = () => {
         setComments(courseInfo.comments);
         setSessions(courseInfo.sessions);
         setCourseDetails(courseInfo);
-    })
+        setCategoryID(courseInfo.categoryID);
+        setCreatedAt(courseInfo.createdAt);
+        setUpdatedAt(courseInfo.updatedAt);
+        setIsComplete(courseInfo.iscomplete)
+      })
+      .catch(err => console.log(err));
 
-  }, [])
+  }, []);
+
+  console.log(courseDetails);
+  console.log(isComplete);
 
   return (
     <>
@@ -61,7 +72,7 @@ const CourseInfo = () => {
           <div className="row">
             <div className="col-6">
               <a href="#" className="course-info__link">
-                آموزش برنامه نویسی فرانت اند
+                {categoryID.title}
               </a>
               <h1 className="course-info__title">
                 {courseDetails.name}
