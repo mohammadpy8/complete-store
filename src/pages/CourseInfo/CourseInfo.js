@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import TopBar from "../../components/TopBar/TopBar";
 import Footer from "../../components/Footer/Footer";
@@ -15,6 +15,11 @@ const CourseInfo = () => {
 
   const { courseName } = useParams();
 
+  const [comments, setComments] = useState([]);
+  const [sessions, setSessions] = useState([]);
+  const [courseDetails, setCourseDetails] = useState([]);
+
+
   useEffect(() => {
     
     fetch(`http://localhost:4000/v1/courses/${courseName}`, {
@@ -25,7 +30,9 @@ const CourseInfo = () => {
     })
       .then(res => res.json())
       .then(courseInfo => {
-      console.log(courseInfo);
+        setComments(courseInfo.comments);
+        setSessions(courseInfo.sessions);
+        setCourseDetails(courseInfo);
     })
 
   }, [])
@@ -57,15 +64,10 @@ const CourseInfo = () => {
                 آموزش برنامه نویسی فرانت اند
               </a>
               <h1 className="course-info__title">
-                آموزش 20 کتابخانه جاوااسکریپت برای بازار کار
+                {courseDetails.name}
               </h1>
               <p className="course-info__text">
-                امروزه کتابخانه‌ها کد نویسی را خیلی آسان و لذت بخش تر کرده اند.
-                به قدری که حتی امروزه هیچ شرکت برنامه نویسی پروژه های خود را با
-                Vanilla Js پیاده سازی نمی کند و همیشه از کتابخانه ها و فریمورک
-                های موجود استفاده می کند. پس شما هم اگه میخواید یک برنامه نویس
-                عالی فرانت اند باشید، باید کتابخانه های کاربردی که در بازار کار
-                استفاده می شوند را به خوبی بلد باشید
+                {courseDetails.description}
               </p>
               <div className="course-info__social-media">
                 <a href="#" className="course-info__social-media-item">
@@ -83,7 +85,7 @@ const CourseInfo = () => {
             <div className="col-6">
               <video
                 src=""
-                poster="/images/courses/js_project.png"
+                poster={courseDetails.cover}
                 className="course-info__video"
                 controls
               ></video>
