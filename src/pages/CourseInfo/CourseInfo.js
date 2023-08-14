@@ -53,6 +53,7 @@ const CourseInfo = () => {
 
   console.log(courseDetails);
   console.log(isComplete);
+  console.log(sessions);
 
   return (
     <>
@@ -233,85 +234,33 @@ const CourseInfo = () => {
                     <Accordion defaultActiveKey="0">
                       <Accordion.Item className="accordion" eventKey="0">
                         <Accordion.Header>معرفی دوره </Accordion.Header>
-                        <Accordion.Body className="introduction__accordion-body">
-                          <div className="introduction__accordion-right">
-                            <span className="introduction__accordion-count">
-                              1
-                            </span>
-                            <i className="fab fa-youtube introduction__accordion-icon"></i>
-                            <a
-                              href="#"
-                              className="introduction__accordion-link"
-                            >
-                              معرفی دوره + چرا یادگیری کتابخانه ها ضروری است؟
-                            </a>
-                          </div>
-                          <div className="introduction__accordion-left">
-                            <span className="introduction__accordion-time">
-                              18:34
-                            </span>
-                          </div>
-                        </Accordion.Body>
-                      </Accordion.Item>
-                      <Accordion.Item className="accordion" eventKey="1">
-                        <Accordion.Header>معرفی دوره</Accordion.Header>
-                        <Accordion.Body className="introduction__accordion-body">
-                          <div className="introduction__accordion-right">
-                            <span className="introduction__accordion-count">
-                              1
-                            </span>
-                            <i className="fab fa-youtube introduction__accordion-icon"></i>
-                            <a
-                              href="#"
-                              className="introduction__accordion-link"
-                            >
-                              معرفی دوره + چرا یادگیری کتابخانه ها ضروری است؟
-                            </a>
-                          </div>
-                          <div className="introduction__accordion-left">
-                            <span className="introduction__accordion-time">
-                              18:34
-                            </span>
-                          </div>
-                        </Accordion.Body>
-                        <Accordion.Body className="introduction__accordion-body">
-                          <div className="introduction__accordion-right">
-                            <span className="introduction__accordion-count">
-                              1
-                            </span>
-                            <i className="fab fa-youtube introduction__accordion-icon"></i>
-                            <a
-                              href="#"
-                              className="introduction__accordion-link"
-                            >
-                              معرفی دوره + چرا یادگیری کتابخانه ها ضروری است؟
-                            </a>
-                          </div>
-                          <div className="introduction__accordion-left">
-                            <span className="introduction__accordion-time">
-                              18:34
-                            </span>
-                          </div>
-                        </Accordion.Body>
-                        <Accordion.Body className="introduction__accordion-body">
-                          <div className="introduction__accordion-right">
-                            <span className="introduction__accordion-count">
-                              1
-                            </span>
-                            <i className="fab fa-youtube introduction__accordion-icon"></i>
-                            <a
-                              href="#"
-                              className="introduction__accordion-link"
-                            >
-                              معرفی دوره + چرا یادگیری کتابخانه ها ضروری است؟
-                            </a>
-                          </div>
-                          <div className="introduction__accordion-left">
-                            <span className="introduction__accordion-time">
-                              18:34
-                            </span>
-                          </div>
-                        </Accordion.Body>
+                        {
+                          sessions.map((session, index) => {
+                            const { _id, title } = session;
+                            return (
+                              <Accordion.Body className="introduction__accordion-body" key={_id}>
+                              <div className="introduction__accordion-right">
+                                <span className="introduction__accordion-count">
+                                  {index + 1}
+                                </span>
+                                <i className="fab fa-youtube introduction__accordion-icon"></i>
+                                <a
+                                  href="#"
+                                  className="introduction__accordion-link"
+                                >
+                                  {title}
+                                </a>
+                              </div>
+                              <div className="introduction__accordion-left">
+                                <span className="introduction__accordion-time">
+                                  18:34
+                                </span>
+                              </div>
+                            </Accordion.Body>
+                            )
+
+                          })
+                        }
                       </Accordion.Item>
                     </Accordion>
                   </div>
