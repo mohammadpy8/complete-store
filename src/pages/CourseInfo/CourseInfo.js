@@ -17,32 +17,38 @@ const CourseInfo = () => {
 
   const [comments, setComments] = useState([]);
   const [sessions, setSessions] = useState([]);
-  const [courseDetails, setCourseDetails] = useState([]); 
+  const [courseDetails, setCourseDetails] = useState([]);
   const [categoryID, setCategoryID] = useState([]);
   const [createdAt, setCreatedAt] = useState([]);
   const [updatedAt, setUpdatedAt] = useState([]);
   const [isComplete, setIsComplete] = useState([]);
+  const [isRegisterUserToCourse, setIsRegisterUserToCourse] = useState([]);
+  const [courseStudentsCount, setCourseStudentsCount] = useState([]);
 
   useEffect(() => {
-    
+
     fetch(`http://localhost:4000/v1/courses/${courseName}`, {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
-      }
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("user")).token
+        }`,
+      },
     })
-      .then(res => res.json())
-      .then(courseInfo => {
+      .then((res) => res.json())
+      .then((courseInfo) => {
         setComments(courseInfo.comments);
         setSessions(courseInfo.sessions);
         setCourseDetails(courseInfo);
         setCategoryID(courseInfo.categoryID);
         setCreatedAt(courseInfo.createdAt);
         setUpdatedAt(courseInfo.updatedAt);
-        setIsComplete(courseInfo.iscomplete)
+        setIsComplete(courseInfo.isComplete);
+        setIsRegisterUserToCourse(courseInfo.isUserRegisteredToThisCourse);
+        setCourseStudentsCount(courseInfo.courseStudentsCount);
       })
-      .catch(err => console.log(err));
-
+      .catch((err) => console.log(err));
+    
   }, []);
 
   console.log(courseDetails);
@@ -74,12 +80,8 @@ const CourseInfo = () => {
               <a href="#" className="course-info__link">
                 {categoryID.title}
               </a>
-              <h1 className="course-info__title">
-                {courseDetails.name}
-              </h1>
-              <p className="course-info__text">
-                {courseDetails.description}
-              </p>
+              <h1 className="course-info__title">{courseDetails.name}</h1>
+              <p className="course-info__text">{courseDetails.description}</p>
               <div className="course-info__social-media">
                 <a href="#" className="course-info__social-media-item">
                   <i className="fab fa-telegram-plane course-info__icon"></i>
@@ -115,32 +117,19 @@ const CourseInfo = () => {
                     <CourseDetailBox
                       icon="graduation-cap"
                       title="وضعیت دوره"
-                      text="به اتمام رسیده"
+                      text={
+                        isComplete === 1 ? "به اتمام رسیده" : "در حال برگذاری"
+                      }
                     />
                     <CourseDetailBox
                       icon="clock"
-                      title="مدت زمان دوره: "
-                      text="19 ساعت"
+                      title="زمان برگذاری:"
+                      text={createdAt.slice(0, 10)}
                     />
                     <CourseDetailBox
                       icon="calendar-alt"
                       title="آخرین به روز رسانی:"
-                      text="1402/03/02"
-                    />
-                    <CourseDetailBox
-                      icon="user-alt"
-                      title="روش پشتیبانی:"
-                      text="آنلاین"
-                    />
-                    <CourseDetailBox
-                      icon="info-circle"
-                      title="پیش نیاز ها:"
-                      text="HTML CSS"
-                    />
-                    <CourseDetailBox
-                      icon="play"
-                      title="نوع مشاهده :"
-                      text="ضبط شده / آنلاین"
+                      text={updatedAt.slice(0, 10)}
                     />
                   </div>
                 </div>
@@ -363,10 +352,17 @@ const CourseInfo = () => {
               <div className="courses-info">
                 <div className="course-info">
                   <div className="course-info__register">
-                    <span className="course-info__register-title">
-                      <i className="fas fa-graduation-cap course-info__register-icon"></i>
-                      دانشجوی دوره هستید
-                    </span>
+                    {isRegisterUserToCourse ? (
+                      <span className="course-info__register-title">
+                        <i className="fas fa-graduation-cap course-info__register-icon"></i>
+                        دانشجو دوره هستید
+                      </span>
+                    ) : (
+                      <span className="course-info__register-title">
+                          ثبت نام در دوره
+                      </span>
+                    )}
+
                   </div>
                 </div>
                 <div className="course-info">
@@ -378,7 +374,7 @@ const CourseInfo = () => {
                           تعداد دانشجو :
                         </span>
                         <span className="course-info__total-sale-number">
-                          178
+                          {courseStudentsCount}
                         </span>
                       </div>
                     </div>
