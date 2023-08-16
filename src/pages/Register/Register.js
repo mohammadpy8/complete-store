@@ -80,10 +80,9 @@ const Register = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <TopBar />
       <Navbar />
-
       <section className="login-register">
         <div className="login register-form">
           <span className="login__title">ساخت حساب کاربری</span>
@@ -206,12 +205,13 @@ const Register = () => {
             </ul>
           </div>
         </div>
-      </section>
+        </section>
+      
 
       <Toaster />
 
       <Footer />
-    </>
+    </React.Fragment>
   );
 };
 

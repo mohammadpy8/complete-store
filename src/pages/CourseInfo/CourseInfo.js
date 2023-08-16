@@ -12,7 +12,6 @@ import { useParams } from "react-router-dom";
 import "./CourseInfo.css";
 
 const CourseInfo = () => {
-
   const { courseName } = useParams();
 
   const [comments, setComments] = useState([]);
@@ -26,7 +25,6 @@ const CourseInfo = () => {
   const [courseStudentsCount, setCourseStudentsCount] = useState([]);
 
   useEffect(() => {
-
     fetch(`http://localhost:4000/v1/courses/${courseName}`, {
       method: "GET",
       headers: {
@@ -48,7 +46,6 @@ const CourseInfo = () => {
         setCourseStudentsCount(courseInfo.courseStudentsCount);
       })
       .catch((err) => console.log(err));
-    
   }, []);
 
   console.log(courseDetails);
@@ -56,7 +53,7 @@ const CourseInfo = () => {
   console.log(sessions);
 
   return (
-    <>
+    <div>
       <TopBar />
       <Navbar />
       <BreadCrumb
@@ -74,39 +71,41 @@ const CourseInfo = () => {
           },
         ]}
       />
-      <section className="course-info">
-        <div className="container">
-          <div className="row">
-            <div className="col-6">
-              <a href="#" className="course-info__link">
-                {categoryID.title}
-              </a>
-              <h1 className="course-info__title">{courseDetails.name}</h1>
-              <p className="course-info__text">{courseDetails.description}</p>
-              <div className="course-info__social-media">
-                <a href="#" className="course-info__social-media-item">
-                  <i className="fab fa-telegram-plane course-info__icon"></i>
+      <>
+        <section className="course-info">
+          <div className="container">
+            <div className="row">
+              <div className="col-6">
+                <a href="#" className="course-info__link">
+                  {categoryID.title}
                 </a>
-                <a href="#" className="course-info__social-media-item">
-                  <i className="fab fa-twitter course-info__icon"></i>
-                </a>
-                <a href="#" className="course-info__social-media-item">
-                  <i className="fab fa-facebook-f course-info__icon"></i>
-                </a>
+                <h1 className="course-info__title">{courseDetails.name}</h1>
+                <p className="course-info__text">{courseDetails.description}</p>
+                <div className="course-info__social-media">
+                  <a href="#" className="course-info__social-media-item">
+                    <i className="fab fa-telegram-plane course-info__icon"></i>
+                  </a>
+                  <a href="#" className="course-info__social-media-item">
+                    <i className="fab fa-twitter course-info__icon"></i>
+                  </a>
+                  <a href="#" className="course-info__social-media-item">
+                    <i className="fab fa-facebook-f course-info__icon"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div className="col-6">
+                <video
+                  src=""
+                  poster={courseDetails.cover}
+                  className="course-info__video"
+                  controls
+                ></video>
               </div>
             </div>
-
-            <div className="col-6">
-              <video
-                src=""
-                poster={courseDetails.cover}
-                className="course-info__video"
-                controls
-              ></video>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </>
 
       <main className="main">
         <div className="container">
@@ -234,11 +233,13 @@ const CourseInfo = () => {
                     <Accordion defaultActiveKey="0">
                       <Accordion.Item className="accordion" eventKey="0">
                         <Accordion.Header>معرفی دوره </Accordion.Header>
-                        {
-                          sessions.map((session, index) => {
-                            const { _id, title } = session;
-                            return (
-                              <Accordion.Body className="introduction__accordion-body" key={_id}>
+                        {sessions.map((session, index) => {
+                          const { _id, title, time } = session;
+                          return (
+                            <Accordion.Body
+                              className="introduction__accordion-body"
+                              key={_id}
+                            >
                               <div className="introduction__accordion-right">
                                 <span className="introduction__accordion-count">
                                   {index + 1}
@@ -253,14 +254,12 @@ const CourseInfo = () => {
                               </div>
                               <div className="introduction__accordion-left">
                                 <span className="introduction__accordion-time">
-                                  18:34
+                                  {time}
                                 </span>
                               </div>
                             </Accordion.Body>
-                            )
-
-                          })
-                        }
+                          );
+                        })}
                       </Accordion.Item>
                     </Accordion>
                   </div>
@@ -308,10 +307,9 @@ const CourseInfo = () => {
                       </span>
                     ) : (
                       <span className="course-info__register-title">
-                          ثبت نام در دوره
+                        ثبت نام در دوره
                       </span>
                     )}
-
                   </div>
                 </div>
                 <div className="course-info">
@@ -427,7 +425,7 @@ const CourseInfo = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
