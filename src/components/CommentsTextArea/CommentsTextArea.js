@@ -2,7 +2,7 @@ import React from "react";
 
 import "./CommentsTextArea.css";
 
-const CommentsTextArea = () => {
+const CommentsTextArea = ({comments}) => {
   return (
     <div className="comments">
       <span className="comments__title">دیدگاهتان را بنویسید</span>
@@ -12,6 +12,15 @@ const CommentsTextArea = () => {
         بخش های موردنیاز علامت گذاری شده اند *
       </span>
       <div className="comments_content">
+        {
+          comments.map(comment => (
+            <>
+              <div>
+                
+              </div>
+            </>
+          ))
+        }
         <span className="comments__content-title">دیدگاه *</span>
         <textarea className="comments__content-textarea"></textarea>
       </div>

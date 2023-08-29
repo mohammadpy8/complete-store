@@ -292,7 +292,7 @@ const CourseInfo = () => {
                     زمینه وب فعالیت داشته باشم.و..
                   </p>
                 </div>
-                <CommentsTextArea />
+                <CommentsTextArea comments={comments} />
               </div>
             </div>
 
