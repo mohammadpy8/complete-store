@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import AuthContext from "../../context/AuthContext";
 
 import "./CommentsTextArea.css";
+import { Link } from "react-router-dom";
 
-const CommentsTextArea = ({comments}) => {
+const CommentsTextArea = ({ comments }) => {
+  const authContext = useContext(AuthContext);
+
   return (
     <div className="comments">
       <span className="comments__title">دیدگاهتان را بنویسید</span>
@@ -12,21 +17,28 @@ const CommentsTextArea = ({comments}) => {
         بخش های موردنیاز علامت گذاری شده اند *
       </span>
       <div className="comments_content">
-        {
-          comments.map(comment => (
-            <>
-              <div>
-                
-              </div>
-            </>
-          ))
-        }
+        {comments.map((comment) => (
+          <>
+            <div>{comment}</div>
+          </>
+        ))}
         <span className="comments__content-title">دیدگاه *</span>
         <textarea className="comments__content-textarea"></textarea>
       </div>
-      <button type="submit" className="comments__button" onClick={() => console.log("set comments")}>
-        فرستادن دیدگاه
-      </button>
+      {authContext.isLoggedIn === true ? (
+        <button
+          type="submit"
+          className="comments__button"
+          onClick={() => console.log("set comments")}
+        >
+          فرستادن دیدگاه
+        </button>
+      ) : (
+        <div className="alert alert-danger">
+          login konid
+          <Link to="/login">Login</Link>
+        </div>
+      )}
     </div>
   );
 };
