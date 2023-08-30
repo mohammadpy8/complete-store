@@ -9,6 +9,8 @@ import CommentsTextArea from "../../components/CommentsTextArea/CommentsTextArea
 import Accordion from "react-bootstrap/Accordion";
 import { useParams } from "react-router-dom";
 
+import swal from "sweetalert";
+
 import "./CourseInfo.css";
 
 const CourseInfo = () => {
@@ -52,6 +54,31 @@ const CourseInfo = () => {
   console.log(courseDetails);
   console.log(isComplete);
   console.log(sessions);
+
+  const submitComment = (newComment) => {
+    const localStorageData = JSON.parse(localStorage.getItem("user"));
+    
+    fetch(`http://localhost:4000/v1/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorageData.token}`
+      },
+      body: JSON.stringify({
+        body: newComment,
+        courseShortName: courseName
+      })
+    }).then(res => res.json())
+      .then(result => {
+        console.log(result);
+        swal({
+          title: "sabt shod",
+          icon: "success",
+          buttons: "taeed",
+        })
+      })
+      .catch(err => console.log(err));
+  }
 
   return (
     <div>
@@ -293,7 +320,7 @@ const CourseInfo = () => {
                     زمینه وب فعالیت داشته باشم.و..
                   </p>
                 </div>
-                <CommentsTextArea comments={comments} />
+                <CommentsTextArea comments={comments} submitComment={submitComment} />
               </div>
             </div>
 
