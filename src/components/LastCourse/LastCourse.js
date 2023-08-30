@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./LastCourse.css";
 import SectionHeader from "../SectionHeader/SectionHeader";
 import CourseBox from "../CourseBox/CourseBox";
 
 const LastCourse = () => {
+
+  const [allCourses, setAllCourses] = useState([]);
+
+  useEffect(() => {
+
+    fetch(`http://localhost:4000/v1/courses`)
+      .then(res => res.json())
+      .then(allCourses => {
+        console.log(allCourses);
+        setAllCourses(allCourses);
+      })
+      .catch(err => console.log(`this my error => ${err}`));
+
+  }, [])
+
   return (
     <>
       <div className="courses">
@@ -17,12 +32,11 @@ const LastCourse = () => {
           <div className="courses-content">
             <div className="container">
               <div className="row">
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
+                {
+                  allCourses.splice(0, 6).map(allCourse => (
+                    <CourseBox key={allCourse.id} {...allCourse} />
+                  ))
+                }
               </div>
             </div>
           </div>
