@@ -17,7 +17,9 @@ const LastCourse = () => {
       })
       .catch(err => console.log(`this my error => ${err}`));
 
-  }, [])
+  }, []);
+
+  console.log(allCourses);
 
   return (
     <>
